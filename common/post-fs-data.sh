@@ -1,4 +1,17 @@
 #!/system/bin/sh
+
+# Menulis data ke dalam berkas (file) jika berkas ada dan izin menulis sudah ada atau belum ada, 
+# memberikan izin menulis jika belum ada, dan kemudian data ditulis ke dalam berkas tersebut.
+write() {
+    local path="$1"
+    local data="$2"
+
+    if [ -f "$path" ] && { [ ! -w "$path" ] || [ -w "$path" ]; }; then
+        [ ! -w "$path" ] && chmod +w "$path"
+        echo "$data" > "$path"
+    fi
+}
+
 # Jangan merubah apapun yang ada disini!
 MODDIR=${0%/*}
 write /proc/sys/vm/page-cluster 0

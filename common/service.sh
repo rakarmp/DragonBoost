@@ -1,5 +1,18 @@
 MODDIR=${0%/*}
 
+# Menulis data ke dalam berkas (file) jika berkas ada dan izin menulis sudah ada atau belum ada, 
+# memberikan izin menulis jika belum ada, dan kemudian data ditulis ke dalam berkas tersebut.
+write() {
+    local path="$1"
+    local data="$2"
+
+    if [ -f "$path" ] && { [ ! -w "$path" ] || [ -w "$path" ]; }; then
+        [ ! -w "$path" ] && chmod +w "$path"
+        echo "$data" > "$path"
+    fi
+}
+
+
 write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor performance
 write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor performance
 write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor performance
