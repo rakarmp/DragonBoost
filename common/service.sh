@@ -2,16 +2,24 @@ MODDIR=${0%/*}
 
 # Menulis data ke dalam berkas (file) jika berkas ada dan izin menulis sudah ada atau belum ada, 
 # memberikan izin menulis jika belum ada, dan kemudian data ditulis ke dalam berkas tersebut.
+
+# perbaikan dari commit @RiProG
+# memeriksa apakah file yang dituju ada (-f "$path") Jika file ada maka kode akan memeriksa izin tulis file (! -w "$path") dan mengubahnya menjadi writable jika diperlukan (chmod +w "$path" 2> /dev/null) Setelah itu, kode akan menulis nilai baru ke dalam file (echo "$data" > "$path" 2> /dev/null) Jika ada kesalahan dalam menulis nilai baru ke dalam file, maka kode akan mencetak pesan "Failed: $path → $data" dan mengembalikan nilai 1
 write() {
     local path="$1"
     local data="$2"
 
-    if [ -f "$path" ] && { [ ! -w "$path" ] || [ -w "$path" ]; }; then
-        [ ! -w "$path" ] && chmod +w "$path"
-        echo "$data" > "$path"
+    if [ -f "$path" ]; then
+        if [ ! -w "$path" ]; then
+            chmod +w "$path" 2> /dev/null
+        fi
+
+        if ! echo "$data" > "$path" 2> /dev/null; then
+            echo "Failed: $path → $data"
+            return 1
+        fi
     fi
 }
-
 
 write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor performance
 write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor performance
