@@ -15,12 +15,14 @@ REPLACE="
 
 print_modname() {
   ui_print "*************************************"
-  ui_print " DragonBoost v1.0"
+  ui_print " DragonBoost v1.1"
   ui_print ""
   ui_print " By @Zyarexx | Telegram "
   ui_print " ⚠️ Snapdragon Only "
   ui_print "*************************************"
 }
+
+sleep 2
 
 on_install() {
   ui_print "- DragonBoost Activated!"
