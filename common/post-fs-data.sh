@@ -19,7 +19,6 @@ write /sys/block/zram0/max_comp_streams 4
 
 # Settingan Untuk Mempercepat GPU Ke performance
 setprop debug.composition.type c2d
-setprop debug.composition.type gpu
 setprop debug.enabletr true
 setprop debug.overlayui.enable 1
 setprop debug.performance.tuning 1
@@ -27,7 +26,6 @@ setprop hw3d.force 1
 setprop hwui.disable_vsync true
 setprop hwui.render_dirty_regions false
 setprop persist.sys.composition.type c2d
-setprop persist.sys.composition.type gpu
 setprop persist.sys.ui.hw 1
 setprop ro.config.enable.hw_accel true
 setprop ro.product.gpu.driver 1

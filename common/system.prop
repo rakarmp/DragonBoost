@@ -1,5 +1,4 @@
 debug.composition.type=c2d
-debug.composition.type=gpu
 debug.enabletr=true
 debug.overlayui.enable=1
 debug.performance.tuning=1
@@ -7,7 +6,6 @@ hw3d.force=1
 hwui.disable_vsync=true
 hwui.render_dirty_regions=false
 persist.sys.composition.type=c2d
-persist.sys.composition.type=gpu
 persist.sys.ui.hw=1
 ro.config.enable.hw_accel=true
 ro.product.gpu.driver=1
