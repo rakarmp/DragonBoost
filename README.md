@@ -1,8 +1,12 @@
+<img src="DragonBoost.png" alt="DragonBoost"/>
+
+<hr/>
+
 # DragonBoost
 
 increase Qualcomm Snapdragon powered devices up to 75% and reduces power consumption up to 25%, and RAM Management.
 
-⛔️ Snapdragon only!
+⛔️ Snapdragon only! <br />
 ⛔️ Arm & Arm64
 
 ## Installation
