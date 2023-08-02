@@ -1,3 +1,10 @@
+## v1.2
+
+- Set Touch Boost
+- Force GPU Touch RenderRender
+- Google Service Reduce Drain Tweaks
+- CPU Perf
+
 ## v1.1
 
 - Add Ram Management

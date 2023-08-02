@@ -154,4 +154,59 @@ sync
 echo "3" > /proc/sys/vm/drop_caches
 am kill-all
 
+# menunggu boot selesai dan menerapkan tweaks
+while [ `getprop vendor.post_boot.parsed` != "1" ]; do
+    sleep 1s
+done
+
+# Apply settings
+sleep 10s
+
+#perf enable
+echo '1' > /sys/devices/system/cpu/perf/enable;
+chmod '0644' > /sys/devices/system/cpu/perf/enable;
+
+echo 'boost' > /sys/devices/system/cpu/sched/sched_boost;
+echo '3' > /proc/cpufreq/cpufreq_power_mode;
+echo '1' > /proc/cpufreq/cpufreq_imax_enable;
+echo '0' > /proc/cpufreq/cpufreq_imax_thermal_protect;
+sleep 0.2
+echo '35' > /dev/stune/foreground/schedtune.boost;
+chmod '0444' /dev/stune/foreground/schedtune.boost;
+echo '1' > /proc/cpufreq/cpufreq_cci_mode;
+chmod '0444' /proc/cpufreq/cpufreq_cci_mode;
+
+# Memaksa GPU untuk render touch
+echo '7035' > /sys/class/touch/switch/set_touchscreen;
+echo '8002' > /sys/class/touch/switch/set_touchscreen;
+echo '11000' > /sys/class/touch/switch/set_touchscreen;
+echo '13060' > /sys/class/touch/switch/set_touchscreen;
+echo '14005' > /sys/class/touch/switch/set_touchscreen;
+
+# Mengurangi Pengurasan Daya Google Service Tweaks Set Config
+sleep '0.001'
+su -c 'pm enable com.google.android.gms'
+sleep '0.001'
+su -c 'pm enable com.google.android.gsf'
+sleep '0.001'
+su -c 'pm enable com.google.android.gms/.update.SystemUpdateActivity'
+sleep '0.001'
+su -c 'pm enable com.google.android.gms/.update.SystemUpdateService'
+sleep '0.001'
+su -c 'pm enable com.google.android.gms/.update.SystemUpdateServiceActiveReceiver'
+sleep '0.001'
+su -c 'pm enable com.google.android.gms/.update.SystemUpdateServiceReceiver'
+sleep '0.001'
+su -c 'pm enable com.google.android.gms/.update.SystemUpdateServiceSecretCodeReceiver'
+sleep '0.001'
+su -c 'pm enable com.google.android.gsf/.update.SystemUpdateActivity'
+sleep '0.001'
+su -c 'pm enable com.google.android.gsf/.update.SystemUpdatePanoActivity'
+sleep '0.001'
+su -c 'pm enable com.google.android.gsf/.update.SystemUpdateService'
+sleep '0.001'
+su -c 'pm enable com.google.android.gsf/.update.SystemUpdateServiceReceiver'
+sleep '0.001'
+su -c 'pm enable com.google.android.gsf/.update.SystemUpdateServiceSecretCodeReceiver'
+
 exit 0
