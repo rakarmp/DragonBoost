@@ -15,7 +15,7 @@ REPLACE="
 
 print_modname() {
   ui_print "*************************************"
-  ui_print " DragonBoost v1.1"
+  ui_print " DragonBoost v1.2"
   ui_print ""
   ui_print " By @Zyarexx | Telegram "
   ui_print " ⚠️ Snapdragon Only "
@@ -25,7 +25,13 @@ print_modname() {
 sleep 2
 
 on_install() {
-  ui_print "- DragonBoost Activated!"
+  ui_print "°•°•Load Tweaks Now..."
+  sleep 2
+  ui_print ""
+  ui_print "°•°•Apply touch booster"
+  sleep 1
+  ui_print ""
+  ui_print "°•°• DragonBoost Activated!"
   unzip -o "$ZIPFILE" 'system/*' -d $MODPATH >&2
 }
 
