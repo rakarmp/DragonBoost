@@ -1,6 +1,6 @@
 #!/system/bin/sh
 
-# Menulis data ke dalam berkas (file) jika berkas ada dan izin menulis sudah ada atau belum ada, 
+# Menulis data ke dalam berkas (file) jika berkas ada dan izin menulis sudah ada atau belum ada,
 # memberikan izin menulis jika belum ada, dan kemudian data ditulis ke dalam berkas tersebut.
 write() {
     local path="$1"
@@ -8,7 +8,7 @@ write() {
 
     if [ -f "$path" ] && { [ ! -w "$path" ] || [ -w "$path" ]; }; then
         [ ! -w "$path" ] && chmod +w "$path"
-        echo "$data" > "$path"
+        echo "$data" >"$path"
     fi
 }
 
@@ -18,6 +18,7 @@ write /proc/sys/vm/page-cluster 0
 write /sys/block/zram0/max_comp_streams 4
 
 # Settingan Untuk Mempercepat GPU Ke performance
+setprop debug.hwui.renderer skiavk
 setprop debug.composition.type c2d
 setprop debug.enabletr true
 setprop debug.overlayui.enable 1
@@ -41,4 +42,3 @@ setprop ro.vendor.qti.sys.fw.bg_apps_limit 120
 setprop ro.vendor.qti.sys.fw.bservice_enable true
 setprop ro.vendor.qti.core.ctl_max_cpu 4
 setprop ro.vendor.qti.core.ctl_min_cpu 2
-

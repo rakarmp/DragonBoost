@@ -1,3 +1,4 @@
+debug.hwui.renderer=skiavk
 debug.composition.type=c2d
 debug.enabletr=true
 debug.overlayui.enable=1
