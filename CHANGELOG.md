@@ -1,3 +1,10 @@
+## v1.3
+
+- Fix Double Process ro.sys.fw.bg_apps_limit
+- Multi Thread
+
+:exclamation: For v1.3 not yet fully released
+
 ## v1.2
 
 - Set Touch Boost
