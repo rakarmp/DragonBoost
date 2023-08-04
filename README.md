@@ -1,5 +1,3 @@
-<img src="DragonBoost.png" alt="DragonBoost"/>
-
 <hr/>
 
 # DragonBoost
