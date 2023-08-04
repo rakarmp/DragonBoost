@@ -1,0 +1,58 @@
+#!/system/bin/sh
+# Logic untuk mengganti thermal dengan cepat
+echo 'Preparing...'
+if [ "$(id -u)" -gt "0" ] && [ "$(whoami)" != "root" ]; then
+    echo $merahHitam"[!]Ketik 'su' Terlebih Dahulu"$ResetWarna
+    echo ""
+    echo "Keluar setelah :"
+    for timeExit in "3s 2s 1s 0s"; do
+        echo "$timeExit"
+        usleep 1000000
+    done
+    exit -1
+fi
+Magisk_path="$(cat "/data/magisk_path.txt")"
+StatusModule="$(cat "$Magisk_path/Db_ThermalKiller/system/vendor/etc/thermalStatus.info")"
+modulePath="$Magisk_path/Db_ThermalKiller"
+function SetThermalTo() {
+    for systemThermal in $(ls $1 | grep $2); do
+        systemThermal=${systemThermal/"-BlankFile"/""}
+        systemThermal=${systemThermal/"-OriFile.bck"/""}
+        if [ $3 == "0" ]; then
+            cp -af "$1/$systemThermal-BlankFile" "$1/$systemThermal"
+        else
+            cp -af "$1/$systemThermal-OriFile.bck" "$1/$systemThermal"
+        fi
+    done
+}
+if [ "$StatusModule" == "0" ]; then
+    StatusThermal="disabled"
+else
+    StatusThermal="enabled(default)"
+fi
+if [ ! -z "$1" ]; then
+    if [ $1 == "0" ]; then
+        SetThermalTo "$modulePath/system/bin" "-BlankFile" "0"
+        SetThermalTo "$modulePath/system/vendor/bin" "-BlankFile" "0"
+        SetThermalTo "$modulePath/system/vendor/etc" "-BlankFile" "0"
+        echo "0" >"$MODPATH/system/vendor/etc/thermalStatus.info"
+        echo "Disable thermal berhasil"
+    else
+        SetThermalTo "$modulePath/system/bin" "-OriFile.bck" "1"
+        SetThermalTo "$modulePath/system/vendor/bin" "-OriFile.bck" "1"
+        SetThermalTo "$modulePath/system/vendor/etc" "-OriFile.bck" "1"
+        echo "1" >"$MODPATH/system/vendor/etc/thermalStatus.info"
+        echo "Enable seperti semula berhasil"
+    fi
+else
+    echo "Current status : $StatusThermal"
+    echo "-- --- -- --- -- --- -- --- "
+    echo "--- -- --- -- --- -- --- -- "
+    echo "+- Tutor dek -+"
+    echo "Untuk On Thermal : "
+    echo "db_tk 1"
+    echo "Untuk Off Thermal : "
+    echo "db_tk 0"
+    echo "-- --- -- --- -- --- -- --- "
+    echo "--- -- --- -- --- -- --- -- "
+fi

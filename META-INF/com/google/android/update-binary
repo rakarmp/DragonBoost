@@ -6,6 +6,8 @@
 
 umask 022
 
+TMPDIR=/dev/tmp
+
 # echo before loading util_functions
 ui_print() { echo "$1"; }
 
