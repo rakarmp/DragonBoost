@@ -42,3 +42,6 @@ setprop ro.vendor.qti.sys.fw.bg_apps_limit 120
 setprop ro.vendor.qti.sys.fw.bservice_enable true
 setprop ro.vendor.qti.core.ctl_max_cpu 4
 setprop ro.vendor.qti.core.ctl_min_cpu 2
+
+setprop persist.sys.dalvik.hyperthreading true
+setprop persist.sys.dalvik.multithread true

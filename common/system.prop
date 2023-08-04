@@ -72,7 +72,7 @@ ro.config.sdha_apps_bg_min=8
 ro.sys.fw.bservice_enable=true
 ro.sys.fw.bservice_limit=128
 #ro.sys.fw.bservice_age=10000
-ro.sys.fw.bg_apps_limit=256
+#ro.sys.fw.bg_apps_limit=256
 ro.vendor.qti.sys.fw.bservice_enable=true
 ro.vendor.qti.sys.fw.bservice_limit=128
 #ro.vendor.qti.sys.fw.bservice_age=10000
@@ -98,3 +98,6 @@ touch.size.calibration=diameter
 touch.size.isSummed=0
 touch.size.scale=1
 view.scroll_friction=10
+
+persist.sys.dalvik.hyperthreading=true
+persist.sys.dalvik.multithread=true
