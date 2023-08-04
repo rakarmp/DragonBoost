@@ -13,6 +13,7 @@
   - dalvik.vm.jmiopts=forcecopy
   - dalvik.vm.dex2oat-filter=interpret-only
   - dalvik.vm.image-dex2oat-filter=speed
+- Automatic Detect Ram For Set Best Heap Dalvik Value
 
 ## v1.2
 
