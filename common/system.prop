@@ -22,14 +22,6 @@ ro.vendor.qti.sys.fw.bservice_enable=true
 ro.vendor.qti.core.ctl_max_cpu=4
 ro.vendor.qti.core.ctl_min_cpu=2
 
-# Dalvik heap settings:
-dalvik.vm.heapstartsize=16m
-dalvik.vm.heapgrowthlimit=320m
-dalvik.vm.heapsize=640m
-dalvik.vm.heaptargetutilization=0.75
-dalvik.vm.heapminfree=512k
-dalvik.vm.heapmaxfree=8m
-
 # Dalvik vm settings
 dalvik.vm.checkjni=false
 dalvik.vm.dexopt-data-only=1
