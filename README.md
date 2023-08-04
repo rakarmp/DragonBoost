@@ -1,4 +1,4 @@
-<img src="DragonBoost.png" alt="DragonBoost"/>
+<img src="DragonBoost.jpeg" alt="DragonBoost"/>
 
 <hr/>
 
@@ -20,4 +20,3 @@ increase Qualcomm Snapdragon powered devices up to 75% and reduces power consump
 ## How it works
 
 Changes values found in the stock kernel, custom kernel, and build.prop, increasing gpu speed and speeding up device performance!
-
