@@ -1,7 +1,7 @@
 ## v1.3
 
 - Fix Double Process ro.sys.fw.bg_apps_limit
-- Multi Thread
+- Multithread & Hyperthread true
 
 :exclamation: For v1.3 not yet fully released
 
