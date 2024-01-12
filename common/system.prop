@@ -22,18 +22,6 @@ ro.vendor.qti.sys.fw.bservice_enable=true
 ro.vendor.qti.core.ctl_max_cpu=4
 ro.vendor.qti.core.ctl_min_cpu=2
 
-# Dalvik vm settings
-dalvik.vm.checkjni=false
-dalvik.vm.dexopt-data-only=1
-dalvik.vm.verify-bytecode=false
-dalvik.vm.execution-mode=int:jit
-dalvik.vm.lockprof.threshold=250
-dalvik.vm.dexopt-flags=m=v,o=y
-dalvik.vm.stack-trace-file=/data/anr/traces.txt
-dalvik.vm.jmiopts=forcecopy
-dalvik.vm.dex2oat-filter=interpret-only
-dalvik.vm.image-dex2oat-filter=speed
-
 persist.vendor.ssr.enable_ramdumps=0
 
 sys.config.spcm_enable=false
