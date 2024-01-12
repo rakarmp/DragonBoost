@@ -1,10 +1,17 @@
-<img src="DragonBoost.jpeg" alt="DragonBoost"/>
+<p align="center">
+<img src="picture.png" alt="DragonBoost" width="800"/>
+</p>
 
-<hr/>
+<br/>
 
-# DragonBoost
 
-increase Qualcomm Snapdragon powered devices up to 75% and reduces power consumption up to 25%, and RAM Management.
+<h1 align="center">DragonBoost</h1>
+
+<p>
+DragonBoost is a Magisk Module that increases Qualcomm Snapdragon powered devices up to 75% and reduces power consumption up to 25%, and RAM Management.
+</p>
+
+## Compatibility
 
 ⛔️ Snapdragon only! <br />
 ⛔️ Arm & Arm64
