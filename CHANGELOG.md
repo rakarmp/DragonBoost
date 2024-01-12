@@ -2,18 +2,7 @@
 
 - Fix Double Process ro.sys.fw.bg_apps_limit
 - Multithread & Hyperthread true
-- Dalvik setting :
-  - dalvik.vm.checkjni=false
-  - dalvik.vm.dexopt-data-only=1
-  - dalvik.vm.verify-bytecode=false
-  - dalvik.vm.execution-mode=int:jit
-  - dalvik.vm.lockprof.threshold=250
-  - dalvik.vm.dexopt-flags=m=v,o=y
-  - dalvik.vm.stack-trace-file=/data/anr/traces.txt
-  - dalvik.vm.jmiopts=forcecopy
-  - dalvik.vm.dex2oat-filter=interpret-only
-  - dalvik.vm.image-dex2oat-filter=speed
-- Automatic Detect Ram For Set Best Heap Dalvik Value
+- Delete Dalvik Settings (Not Work)
 
 ## v1.2
 
