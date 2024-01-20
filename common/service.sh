@@ -183,6 +183,41 @@ echo '11000' > /sys/class/touch/switch/set_touchscreen;
 echo '13060' > /sys/class/touch/switch/set_touchscreen;
 echo '14005' > /sys/class/touch/switch/set_touchscreen;
 
+# Sd card
+if [ -e /sys/devices/virtual/bdi/0:18/read_ahead_kb ]; then
+    echo $READ_AHEAD_KB > /sys/devices/virtual/bdi/0:18/read_ahead_kb
+fi
+if [ -e /sys/devices/virtual/bdi/179:0/read_ahead_kb ]; then
+    echo $READ_AHEAD_KB > /sys/devices/virtual/bdi/179:0/read_ahead_kb
+fi
+if [ -e /sys/devices/virtual/bdi/7:0/read_ahead_kb ]; then
+    echo $READ_AHEAD_KB > /sys/devices/virtual/bdi/7:0/read_ahead_kb
+fi
+if [ -e /sys/devices/virtual/bdi/7:1/read_ahead_kb ]; then
+    echo $READ_AHEAD_KB > /sys/devices/virtual/bdi/7:1/read_ahead_kb
+fi
+if [ -e /sys/devices/virtual/bdi/7:2/read_ahead_kb ]; then
+    echo $READ_AHEAD_KB > /sys/devices/virtual/bdi/7:2/read_ahead_kb
+fi
+if [ -e /sys/devices/virtual/bdi/7:3/read_ahead_kb ]; then
+    echo $READ_AHEAD_KB > /sys/devices/virtual/bdi/7:3/read_ahead_kb
+fi
+if [ -e /sys/devices/virtual/bdi/7:4/read_ahead_kb ]; then
+    echo $READ_AHEAD_KB > /sys/devices/virtual/bdi/7:4/read_ahead_kb
+fi
+if [ -e /sys/devices/virtual/bdi/7:5/read_ahead_kb ]; then
+    echo $READ_AHEAD_KB > /sys/devices/virtual/bdi/7:5/read_ahead_kb
+fi
+if [ -e /sys/devices/virtual/bdi/7:6/read_ahead_kb ]; then
+    echo $READ_AHEAD_KB > /sys/devices/virtual/bdi/7:6/read_ahead_kb
+fi
+if [ -e /sys/devices/virtual/bdi/7:7/read_ahead_kb ]; then
+    echo $READ_AHEAD_KB > /sys/devices/virtual/bdi/7:7/read_ahead_kb
+fi
+if [ -e /sys/devices/virtual/bdi/default/read_ahead_kb ]; then
+    echo $READ_AHEAD_KB > /sys/devices/virtual/bdi/default/read_ahead_kb
+fi
+
 # Mengurangi Pengurasan Daya Google Service Tweaks Set Config
 sleep '0.001'
 su -c 'pm enable com.google.android.gms'
