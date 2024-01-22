@@ -6,8 +6,10 @@ write() {
     local path="$1"
     local data="$2"
 
-    if [ -f "$path" ] && { [ ! -w "$path" ] || [ -w "$path" ]; }; then
-        [ ! -w "$path" ] && chmod +w "$path"
+    if [ -f "$path" ] && [ -w "$path" ]; then
+        echo "$data" >"$path"
+    elif [ -f "$path" ]; then
+        chmod +w "$path"
         echo "$data" >"$path"
     fi
 }
