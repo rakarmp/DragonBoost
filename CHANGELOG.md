@@ -5,7 +5,6 @@
 - Removed the use of if !echo "$data" > "$path" 2> /dev/null and replaced it with echo "$data" > "$path" || { ... } . This allows us to handle errors better and return an exit code of 1 if the write fails.
 - Combines the chmod +w "$path" 2>/dev/null command with a return of 1 using the || operator. If the chmod command fails, then exit code 1 will be returned immediately.
 
-'''bash
 for scheduler in /sys/block/*/queue; do
 write $scheduler/scheduler "noop"
 write $scheduler/iostats "0"
@@ -24,7 +23,6 @@ write $iosched/group_idle "0"
 write $iosched/group_idle_us "0"
 write $iosched/low_latency "1"
 done
-'''
 
 - In this setting, we use the "noop" scheduler which is a simple and efficient scheduler for IO performance. We also set some other values to improve performance, such as enabling IO request merging by setting "nomerges" to 1, setting "read_ahead_kb" to 4096 to read more data at once, and increasing the number of "nr_requests" to 512 to allow more IO requests simultaneously.
 
