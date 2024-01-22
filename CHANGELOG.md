@@ -26,7 +26,9 @@ write $iosched/low_latency "1"
 done
 '''
 
-- Dalam pengaturan ini, kami menggunakan scheduler "noop" yang merupakan scheduler yang sederhana dan efisien untuk performa IO. Kami juga mengatur beberapa nilai lainnya untuk meningkatkan performa, seperti mengaktifkan penggabungan (merging) request IO dengan mengatur "nomerges" menjadi 1, mengatur "read_ahead_kb" menjadi 4096 untuk membaca lebih banyak data sekaligus, dan meningkatkan jumlah "nr_requests" menjadi 512 untuk mengizinkan lebih banyak permintaan IO secara bersamaan.
+- In this setting, we use the "noop" scheduler which is a simple and efficient scheduler for IO performance. We also set some other values to improve performance, such as enabling IO request merging by setting "nomerges" to 1, setting "read_ahead_kb" to 4096 to read more data at once, and increasing the number of "nr_requests" to 512 to allow more IO requests simultaneously.
+
+- In the code in the refactored uninstall.sh file, I added a few small changes to ensure a successful uninstall. I used the -r option in the rm command to recursively delete directories if they are empty after deleting the files in them. I also added quotes to the LINE variable to avoid problems with spaces or special characters in file paths.
 
 ## v1.3
 
