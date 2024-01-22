@@ -1,7 +1,7 @@
 # Don't modify anything after this
-# Jangan Merubah Apapun Disini
-[[ -f "$INFO" ]] && {
-  while read LINE; do
+
+if [[ -f "$INFO" ]]; then
+  while read -r LINE; do
     if [[ "$(echo -n "$LINE" | tail -c 1)" == "~" ]]; then
       continue
     elif [[ -f "$LINE~" ]]; then
@@ -9,10 +9,14 @@
     else
       rm -f "$LINE"
       while true; do
-        LINE=$(dirname $LINE)
-        [[ "$(ls -A $LINE 2>/dev/null)" ]] && break 1 || rm -rf "$LINE"
+        LINE=$(dirname "$LINE")
+        if [[ "$(ls -A "$LINE" 2>/dev/null)" ]]; then
+          break
+        else
+          rm -rf "$LINE"
+        fi
       done
     fi
-  done < $INFO
+  done < "$INFO"
   rm -f "$INFO"
-}
+fi
