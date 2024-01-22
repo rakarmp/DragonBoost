@@ -110,22 +110,22 @@ fi
 
 # Pengoptimalan IO memberikan ram terbaik
 for scheduler in /sys/block/*/queue; do
-    write $scheduler/scheduler "deadline"
-    write $scheduler/iostats "0"
-    write $scheduler/add_random "0"
-    write $scheduler/nomerges "0"
-    write $scheduler/rq_affinity "2"
-    write $scheduler/rotational "0"
-    write $scheduler/read_ahead_kb "128"
-    write $scheduler/nr_requests "128"
+write $scheduler/scheduler "noop"
+write $scheduler/iostats "0"
+write $scheduler/add_random "0"
+write $scheduler/nomerges "1"
+write $scheduler/rq_affinity "0"
+write $scheduler/rotational "0"
+write $scheduler/read_ahead_kb "4096"
+write $scheduler/nr_requests "512"
 done
-
+ 
 for iosched in /sys/block/*/iosched; do
-    write $iosched/slice_idle "0"
-    write $iosched/slice_idle_us "0"
-    write $iosched/group_idle "8"
-    write $iosched/group_idle_us "8000"
-    write $iosched/low_latency "1"
+write $iosched/slice_idle "0"
+write $iosched/slice_idle_us "0"
+write $iosched/group_idle "0"
+write $iosched/group_idle_us "0"
+write $iosched/low_latency "1"
 done
 
 # mengatur prioritas dan alokasi sumber daya I/O blok antara grup utama dan grup latar belakang
