@@ -110,7 +110,7 @@ fi
 
 # Pengoptimalan IO memberikan ram terbaik
 for scheduler in /sys/block/*/queue; do
-write $scheduler/scheduler "noop"
+write $scheduler/scheduler "cfq"
 write $scheduler/iostats "0"
 write $scheduler/add_random "0"
 write $scheduler/nomerges "1"
