@@ -116,8 +116,8 @@ write $scheduler/add_random "0"
 write $scheduler/nomerges "1"
 write $scheduler/rq_affinity "0"
 write $scheduler/rotational "0"
-write $scheduler/read_ahead_kb "4096"
-write $scheduler/nr_requests "512"
+write $scheduler/read_ahead_kb "2048"
+write $scheduler/nr_requests "256"
 done
  
 for iosched in /sys/block/*/iosched; do
