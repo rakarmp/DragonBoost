@@ -14,27 +14,39 @@ REPLACE="
 "
 
 print_modname() {
-  ui_print "*************************************"
-  ui_print " 𝘿𝙧𝙖𝙜𝙤𝙣𝘽𝙤𝙤𝙨𝙩 v1.5"
+  ui_print "******************************************"
+  ui_print "    𝘿𝙧𝙖𝙜𝙤𝙣𝘽𝙤𝙨𝙩 v1.5 - Performance Booster"
+  ui_print "******************************************"
+  ui_print " Author: @Zyarexx (Telegram)"
+  ui_print " WARNING: Only for Snapdragon Devices"
+  ui_print "******************************************"
   ui_print ""
-  ui_print " @Zyarexx | Telegram "
-  ui_print " ⚠️ Snapdragon Only "
-  ui_print "*************************************"
-  ui_print ""
-  ui_print "🚀 Installing DragonBoost..."
-  sleep 2
 }
 
-sleep 2
-
 on_install() {
-  ui_print "🔥 Loading Tweaks Now..."
-  sleep 2
-  ui_print ""
-  ui_print "✨ DragonBoost Activated!"
+  print_modname
+  ui_print "🚀 Preparing Installation of DragonBoost..."
+  sleep 1
   unzip -o "$ZIPFILE" 'system/*' -d $MODPATH >&2
+  ui_print "🔥 Injecting Performance Tweaks..."
+  sleep 1
+  ui_print "✨ DragonBoost Activation In Progress..."
+  sleep 2
+  ui_print "✔ Installation Successful!"
+  ui_print ""
 }
 
 set_permissions() {
+  ui_print "🔒 Setting Permissions..."
   set_perm_recursive $MODPATH 0 0 0755 0644
+  ui_print "✔ Permissions Set!"
 }
+
+# Additional function to separate visual elements and functionality
+sleep 2
+
+# Call the main function
+on_install
+
+# Set the necessary permissions
+set_permissions
