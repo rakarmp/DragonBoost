@@ -1,3 +1,8 @@
+## v1.5
+- Change Sheduler I/O To cfq
+- Sdcard Tweaks (read_ahead_kd)
+- Optimize Other Code
+
 ## v1.4
 - Removes the [ ! -w "$path" ] || [ -w "$path" ] condition as it is not needed.
 - Combines the conditions [ ! -w "$path" ] and chmod +w "$path" into one elif block.
