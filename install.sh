@@ -34,6 +34,9 @@ on_install() {
   sleep 2
   ui_print "✔ Installation Successful!"
   ui_print ""
+  am broadcast -a com.topjohnwu.magisk.NEW_TOAST --es msg "DragonBoost installed successfully!" >&2
+
+  am broadcast -a me.weishu.kernelsu.NEW_TOAST --es msg "DragonBoost installed successfully!" >&2
 }
 
 set_permissions() {
