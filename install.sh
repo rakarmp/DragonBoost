@@ -15,7 +15,7 @@ REPLACE="
 
 print_modname() {
   ui_print "*************************************"
-  ui_print " 𝘿𝙧𝙖𝙜𝙤𝙣𝘽𝙤𝙤𝙨𝙩 v1.4"
+  ui_print " 𝘿𝙧𝙖𝙜𝙤𝙣𝘽𝙤𝙤𝙨𝙩 v1.5"
   ui_print ""
   ui_print " @Zyarexx | Telegram "
   ui_print " ⚠️ Snapdragon Only "
