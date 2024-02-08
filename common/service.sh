@@ -245,4 +245,6 @@ su -c 'pm enable com.google.android.gsf/.update.SystemUpdateServiceReceiver'
 sleep '0.001'
 su -c 'pm enable com.google.android.gsf/.update.SystemUpdateServiceSecretCodeReceiver'
 
+su -lp 2000 -c "cmd notification post -S bigtext -t 'DragonBoost 1.6' 'Enable' 'DragonBoost Successfully Installed, Have Fun Boost Your Game!!!'"
+
 exit 0
