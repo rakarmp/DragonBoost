@@ -1,3 +1,10 @@
+## v1.6
+- Change Scheduler To Deadline
+- Change read_ahead_kb And nr_requests To 128
+- Change Value Group Idle and Group Idle Us 8, 8000
+- Delete Log Function
+- Notification After Module Installed And Reboot 
+
 ## v1.5
 - Change Sheduler I/O To cfq
 - Sdcard Tweaks (read_ahead_kd)
