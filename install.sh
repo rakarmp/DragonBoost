@@ -15,7 +15,7 @@ REPLACE="
 
 print_modname() {
   ui_print "******************************************"
-  ui_print "    𝘿𝙧𝙖𝙜𝙤𝙣𝘽𝙤𝙨𝙩 v1.5 - Stable Version"
+  ui_print "      𝘿ragon𝘽oost - Boost Your Qcomm"
   ui_print "******************************************"
   ui_print " Author: @Zyarexx (Telegram)"
   ui_print " WARNING: Only for Snapdragon Devices"
