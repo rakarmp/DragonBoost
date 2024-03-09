@@ -221,30 +221,30 @@ fi
 
 # Mengurangi Pengurasan Daya Google Service Tweaks Set Config
 sleep '0.001'
-su -c 'pm enable com.google.android.gms'
+su -c 'pm disable com.google.android.gms'
 sleep '0.001'
-su -c 'pm enable com.google.android.gsf'
+su -c 'pm disable com.google.android.gsf'
 sleep '0.001'
-su -c 'pm enable com.google.android.gms/.update.SystemUpdateActivity'
+su -c 'pm disable com.google.android.gms/.update.SystemUpdateActivity'
 sleep '0.001'
-su -c 'pm enable com.google.android.gms/.update.SystemUpdateService'
+su -c 'pm disable com.google.android.gms/.update.SystemUpdateService'
 sleep '0.001'
-su -c 'pm enable com.google.android.gms/.update.SystemUpdateServiceActiveReceiver'
+su -c 'pm disable com.google.android.gms/.update.SystemUpdateServiceActiveReceiver'
 sleep '0.001'
-su -c 'pm enable com.google.android.gms/.update.SystemUpdateServiceReceiver'
+su -c 'pm disable com.google.android.gms/.update.SystemUpdateServiceReceiver'
 sleep '0.001'
-su -c 'pm enable com.google.android.gms/.update.SystemUpdateServiceSecretCodeReceiver'
+su -c 'pm disable com.google.android.gms/.update.SystemUpdateServiceSecretCodeReceiver'
 sleep '0.001'
-su -c 'pm enable com.google.android.gsf/.update.SystemUpdateActivity'
+su -c 'pm disable com.google.android.gsf/.update.SystemUpdateActivity'
 sleep '0.001'
-su -c 'pm enable com.google.android.gsf/.update.SystemUpdatePanoActivity'
+su -c 'pm disable com.google.android.gsf/.update.SystemUpdatePanoActivity'
 sleep '0.001'
-su -c 'pm enable com.google.android.gsf/.update.SystemUpdateService'
+su -c 'pm disable com.google.android.gsf/.update.SystemUpdateService'
 sleep '0.001'
-su -c 'pm enable com.google.android.gsf/.update.SystemUpdateServiceReceiver'
+su -c 'pm disable com.google.android.gsf/.update.SystemUpdateServiceReceiver'
 sleep '0.001'
-su -c 'pm enable com.google.android.gsf/.update.SystemUpdateServiceSecretCodeReceiver'
+su -c 'pm disable com.google.android.gsf/.update.SystemUpdateServiceSecretCodeReceiver'
 
-su -lp 2000 -c "cmd notification post -S bigtext -t 'DragonBoost 1.6' 'Enable' 'DragonBoost Successfully Installed, Have Fun Boost Your Game!!!'"
+su -lp 2000 -c "cmd notification post -S bigtext -t 'DragonBoost 1.6' 'Tag' 'DragonBoost Successfully Installed, Have Fun Boost Your Game!!!'" > /dev/null 2>&1
 
 exit 0
