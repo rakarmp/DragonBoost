@@ -1,3 +1,6 @@
+## v1.7
+- Fix Google Service Drain
+
 ## v1.6
 - Change Scheduler To Deadline
 - Change read_ahead_kb And nr_requests To 128
