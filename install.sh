@@ -34,9 +34,6 @@ on_install() {
   sleep 2
   ui_print "✔ Installation Successful!"
   ui_print ""
-  am broadcast -a com.topjohnwu.magisk.NEW_TOAST --es msg "DragonBoost installed successfully!" >&2
-
-  am broadcast -a me.weishu.kernelsu.NEW_TOAST --es msg "DragonBoost installed successfully!" >&2
 }
 
 set_permissions() {
@@ -44,12 +41,3 @@ set_permissions() {
   set_perm_recursive $MODPATH 0 0 0755 0644
   ui_print "✔ Permissions Set!"
 }
-
-# Additional function to separate visual elements and functionality
-sleep 2
-
-# Call the main function
-on_install
-
-# Set the necessary permissions
-set_permissions
