@@ -8,7 +8,7 @@
 <h1 align="center">DragonBoost</h1>
 
 <p>
-DragonBoost is a Magisk Module that increases Qualcomm Snapdragon powered devices up to 75% and reduces power consumption up to 25%, and RAM Management.
+DragonBoost is a Magisk Module that increases Qualcomm Snapdragon powered devices up to 75% and RAM Management.
 </p>
 
 ## Compatibility
