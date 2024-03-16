@@ -24,7 +24,6 @@ print_modname() {
 }
 
 on_install() {
-  print_modname
   ui_print "🚀 Preparing Installation of DragonBoost..."
   sleep 1
   unzip -o "$ZIPFILE" 'system/*' -d $MODPATH >&2
@@ -37,7 +36,5 @@ on_install() {
 }
 
 set_permissions() {
-  ui_print "🔒 Setting Permissions..."
   set_perm_recursive $MODPATH 0 0 0755 0644
-  ui_print "✔ Permissions Set!"
 }
