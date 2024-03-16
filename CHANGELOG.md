@@ -1,3 +1,8 @@
+## v2.3 stable 
+- Fix Play Service Disable
+- Fix Double Proccess Modname
+- Misc Error
+
 ## v1.7
 - Fix Google Service Drain
 
