@@ -1,3 +1,10 @@
+## v2.5
+- Delete Some Function Not Work
+- New Logic For Cpu
+- Adreno idler, lmp.
+- Refacto code Service.sh
+- Multi thread, Hyper thread Delete
+
 ## v2.4 
 - Add MIT License
 - Setup update.json For Automatic Update In Magisk, [IzzySoft](https://github.com/IzzySoft)
