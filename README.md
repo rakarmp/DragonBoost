@@ -1,9 +1,3 @@
-<p align="center">
-<img src="picture.png" alt="DragonBoost" width="800"/>
-</p>
-
-<br/>
-
 
 <h1 align="center">DragonBoost</h1>
 
