@@ -1,4 +1,8 @@
-## v2.3 stable 
+## v2.4 
+- Add MIT License
+- Setup update.json For Automatic Update In Magisk, [IzzySoft](https://github.com/IzzySoft)
+
+## v2.3
 - Fix Play Service Disable
 - Fix Double Proccess Modname
 - Misc Error
