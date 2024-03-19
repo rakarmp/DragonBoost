@@ -1,5 +1,5 @@
+#!/system/bin/sh
 MODDIR=${0%/*}
-
 # Menulis data ke dalam berkas (file) jika berkas ada dan izin menulis sudah ada atau belum ada, 
 # memberikan izin menulis jika belum ada, dan kemudian data ditulis ke dalam berkas tersebut.
 
@@ -22,29 +22,49 @@ write() {
     fi
 }
 
-write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor performance
-write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor performance
-write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor performance
-write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor performance
-write /sys/devices/system/cpu/cpufreq/policy0/scaling_governor performance
-write /sys/devices/system/cpu/cpufreq/policy4/scaling_governor performance
-write /sys/devices/system/cpu/cpufreq/performance/above_hispeed_delay 0
-write /sys/devices/system/cpu/cpufreq/performance/boost 1
-write /sys/devices/system/cpu/cpufreq/performance/go_hispeed_load 75
-write /sys/devices/system/cpu/cpufreq/performance/max_freq_hysteresis 1
-write /sys/devices/system/cpu/cpufreq/performance/align_windows 1
-write /sys/kernel/gpu/gpu_governor performance
-write /sys/module/adreno_idler/parameters/adreno_idler_active 0
-write /sys/module/lazyplug/parameters/nr_possible_cores 8
-write /sys/module/msm_performance/parameters/touchboost 1
-write /dev/cpuset/foreground/boost/cpus 4-7
-write /dev/cpuset/foreground/cpus 0-3,4-7
-write /dev/cpuset/top-app/cpus 0-7
+sleep 20
+# adreno snapshot 
+echo "0" > /sys/class/kgsl/kgsl-3d0/snapshot/snapshot_crashdumper
+echo "0" > /sys/class/kgsl/kgsl-3d0/snapshot/dump
+echo "0" > /sys/class/kgsl/kgsl-3d0/snapshot/force_panic
 
-# mengoptimalkan penggunaan memori pada sistem
-# mengatur swap, ukuran disk dan batas memori, mengatur parameter VM, mengaktifkan oom_reaper
-# mengatur minfree untuk lowmemorykiller
+echo "1" > /sys/module/adreno_idler/parameters/adreno_idler_active
 
+for rx in /sys/module/lpm_levels/parameters; do
+    write $rx/lpm_ipi_prediction "0"
+    write $rx/lpm_prediction "0"
+    write $rx/sleep_disabled "0"
+done
+
+for gov in /sys/devices/system/cpu/*/cpufreq
+  do
+    echo "500" > $gov/schedutil/up_rate_limit_us
+    echo "2000" > $gov/schedutil/down_rate_limit_us
+    echo "85" > $gov/schedutil/hispeed_load
+    echo "1" > $gov/schedutil/pl
+    echo "0" > $gov/schedutil/iowait_boost_enable
+  done
+  
+for rcct in /sys/devices/system/cpu/*/core_ctl
+do
+  chmod 666 $rcct/enable
+  echo "0" > $rcct/enable
+  chmod 444 $rcct/enable
+done
+
+for gpu in /sys/class/kgsl/kgsl-3d0
+do
+  echo "0" > $gpu/adrenoboost
+  echo "0" > $gpu/devfreq/adrenoboost
+  echo "0" > $gpu/throttling
+  echo "0" > $gpu/bus_split
+  echo "1" > $gpu/force_clk_on
+  echo "1" > $gpu/force_bus_on
+  echo "1" > $gpu/force_rail_on
+  echo "1" > $gpu/force_no_nap
+  echo "80" > $gpu/idle_timer
+  echo "0" > $gpu/max_pwrlevel
+done
 
 swapoff /dev/block/zram0
 echo "1" > /sys/block/zram0/reset
@@ -87,164 +107,30 @@ echo "0" > /sys/module/lowmemorykiller/parameters/enable_lmk
 echo "0" > /sys/module/lowmemorykiller/parameters/debug_level
 rm /data/system/perfd/default_values
 
-# penerapan OOM (out of memory)
-echo "0" > /proc/sys/vm/oom_dump_tasks
-echo "0" > /proc/sys/vm/panic_on_oom
-echo "0" > /proc/sys/vm/reap_mem_on_sigkill
+echo "3" > /proc/sys/vm/drop_caches
 
-# commit RAM
-echo "50" > /proc/sys/vm/overcommit_ratio
-echo "0" > /proc/sys/vm/compact_unevictable_allowed
-echo "1" > /proc/sys/vm/compact_memory
+echo "1" > /dev/cpuset/sched_relax_domain_level
+echo "1" > /dev/cpuset/system-background/sched_relax_domain_level
+echo "1" > /dev/cpuset/background/sched_relax_domain_level
+echo "1" > /dev/cpuset/camera-background/sched_relax_domain_level
+echo "1" > /dev/cpuset/foreground/sched_relax_domain_level
+echo "1" > /dev/cpuset/top-app/sched_relax_domain_level
+echo "1" > /dev/cpuset/restricted/sched_relax_domain_level
+echo "1" > /dev/cpuset/asopt/sched_relax_domain_level
+echo "1" > /dev/cpuset/camera-daemon/sched_relax_domain_level
 
-# Pengoptimalan Activity Manager
-if [ $(getprop ro.build.version.sdk) -gt 28 ]; then
-  device_config set_sync_disabled_for_tests persistent
-  device_config put activity_manager max_phantom_processes 2147483647
-  device_config put activity_manager max_cached_processes 256
-  device_config put activity_manager max_empty_time_millis 43200000
-  settings put global settings_enable_monitor_phantom_procs false
-else
-  settings put global activity_manager_constants max_cached_processes=256
-fi
-
-# Pengoptimalan IO memberikan ram terbaik
-for scheduler in /sys/block/*/queue; do
-write $scheduler/scheduler "deadline"
-write $scheduler/iostats "0"
-write $scheduler/add_random "0"
-write $scheduler/nomerges "1"
-write $scheduler/rq_affinity "0"
-write $scheduler/rotational "0"
-write $scheduler/read_ahead_kb "128"
-write $scheduler/nr_requests "128"
-done
- 
-for iosched in /sys/block/*/iosched; do
-write $iosched/slice_idle "0"
-write $iosched/slice_idle_us "0"
-write $iosched/group_idle "8"
-write $iosched/group_idle_us "8000"
-write $iosched/low_latency "1"
-done
-
-# mengatur prioritas dan alokasi sumber daya I/O blok antara grup utama dan grup latar belakang
-if [ -d /dev/blkio ]; then
-  echo "1000" > /dev/blkio/blkio.weight
-  echo "200" > /dev/blkio/background/blkio.weight
-  echo "2000" > /dev/blkio/blkio.group_idle
-  echo "0" > /dev/blkio/background/blkio.group_idle
-fi
-
-# Entropy : Uji stabilitas dan apakah menghasilkan konsistensi
-echo "64" > /proc/sys/kernel/random/read_wakeup_threshold
-echo "512" > /proc/sys/kernel/random/write_wakeup_threshold
-
-# Zram Read
-echo "0" > /sys/fs/f2fs_dev/mmcblk0p79/iostat_enable
-echo "512" > /sys/block/zram0/queue/read_ahead_kb
-
-# Mematikan rendering RAM
-echo "0" > /sys/module/subsystem_restart/parameters/enable_ramdumps
-echo "0" > /sys/module/subsystem_restart/parameters/enable_mini_ramdumps
+# Cài đặt linh tính các kernel , 20 để cho ra gần như cao nhất và các tính chất khác
+echo "0" > /proc/sys/kernel/sched_schedstats
+echo "0" > /proc/sys/kernel/sched_boost
+echo "0" > /proc/sys/kernel/sched_tunable_scaling
+echo "1" > /proc/sys/kernel/timer_migration
+echo "25" > /proc/sys/kernel/perf_cpu_time_max_percent
+echo "1" > /proc/sys/kernel/sched_autogroup_enabled
+echo "0" > /proc/sys/kernel/sched_child_runs_first
+echo "32" > /proc/sys/kernel/sched_nr_migrate
 
 sleep 20
 
-# Menghapus RAM
-sync
-echo "3" > /proc/sys/vm/drop_caches
-am kill-all
-
-# menunggu boot selesai dan menerapkan tweaks
-while [ `getprop vendor.post_boot.parsed` != "1" ]; do
-    sleep 1s
-done
-
-# Apply settings
-sleep 10s
-
-#perf enable
-echo '1' > /sys/devices/system/cpu/perf/enable;
-chmod '0644' > /sys/devices/system/cpu/perf/enable;
-
-echo 'boost' > /sys/devices/system/cpu/sched/sched_boost;
-echo '3' > /proc/cpufreq/cpufreq_power_mode;
-echo '1' > /proc/cpufreq/cpufreq_imax_enable;
-echo '0' > /proc/cpufreq/cpufreq_imax_thermal_protect;
-sleep 0.2
-echo '35' > /dev/stune/foreground/schedtune.boost;
-chmod '0444' /dev/stune/foreground/schedtune.boost;
-echo '1' > /proc/cpufreq/cpufreq_cci_mode;
-chmod '0444' /proc/cpufreq/cpufreq_cci_mode;
-
-# Memaksa GPU untuk render touch
-echo '7035' > /sys/class/touch/switch/set_touchscreen;
-echo '8002' > /sys/class/touch/switch/set_touchscreen;
-echo '11000' > /sys/class/touch/switch/set_touchscreen;
-echo '13060' > /sys/class/touch/switch/set_touchscreen;
-echo '14005' > /sys/class/touch/switch/set_touchscreen;
-
-# Sd card
-if [ -e /sys/devices/virtual/bdi/0:18/read_ahead_kb ]; then
-    echo $READ_AHEAD_KB > /sys/devices/virtual/bdi/0:18/read_ahead_kb
-fi
-if [ -e /sys/devices/virtual/bdi/179:0/read_ahead_kb ]; then
-    echo $READ_AHEAD_KB > /sys/devices/virtual/bdi/179:0/read_ahead_kb
-fi
-if [ -e /sys/devices/virtual/bdi/7:0/read_ahead_kb ]; then
-    echo $READ_AHEAD_KB > /sys/devices/virtual/bdi/7:0/read_ahead_kb
-fi
-if [ -e /sys/devices/virtual/bdi/7:1/read_ahead_kb ]; then
-    echo $READ_AHEAD_KB > /sys/devices/virtual/bdi/7:1/read_ahead_kb
-fi
-if [ -e /sys/devices/virtual/bdi/7:2/read_ahead_kb ]; then
-    echo $READ_AHEAD_KB > /sys/devices/virtual/bdi/7:2/read_ahead_kb
-fi
-if [ -e /sys/devices/virtual/bdi/7:3/read_ahead_kb ]; then
-    echo $READ_AHEAD_KB > /sys/devices/virtual/bdi/7:3/read_ahead_kb
-fi
-if [ -e /sys/devices/virtual/bdi/7:4/read_ahead_kb ]; then
-    echo $READ_AHEAD_KB > /sys/devices/virtual/bdi/7:4/read_ahead_kb
-fi
-if [ -e /sys/devices/virtual/bdi/7:5/read_ahead_kb ]; then
-    echo $READ_AHEAD_KB > /sys/devices/virtual/bdi/7:5/read_ahead_kb
-fi
-if [ -e /sys/devices/virtual/bdi/7:6/read_ahead_kb ]; then
-    echo $READ_AHEAD_KB > /sys/devices/virtual/bdi/7:6/read_ahead_kb
-fi
-if [ -e /sys/devices/virtual/bdi/7:7/read_ahead_kb ]; then
-    echo $READ_AHEAD_KB > /sys/devices/virtual/bdi/7:7/read_ahead_kb
-fi
-if [ -e /sys/devices/virtual/bdi/default/read_ahead_kb ]; then
-    echo $READ_AHEAD_KB > /sys/devices/virtual/bdi/default/read_ahead_kb
-fi
-
-# Mengurangi Pengurasan Daya Google Service Tweaks Set Config
-sleep '0.001'
-su -c 'pm enable com.google.android.gms'
-sleep '0.001'
-su -c 'pm enable com.google.android.gsf'
-sleep '0.001'
-su -c 'pm enable com.google.android.gms/.update.SystemUpdateActivity'
-sleep '0.001'
-su -c 'pm enable com.google.android.gms/.update.SystemUpdateService'
-sleep '0.001'
-su -c 'pm enable com.google.android.gms/.update.SystemUpdateServiceActiveReceiver'
-sleep '0.001'
-su -c 'pm enable com.google.android.gms/.update.SystemUpdateServiceReceiver'
-sleep '0.001'
-su -c 'pm enable com.google.android.gms/.update.SystemUpdateServiceSecretCodeReceiver'
-sleep '0.001'
-su -c 'pm enable com.google.android.gsf/.update.SystemUpdateActivity'
-sleep '0.001'
-su -c 'pm enable com.google.android.gsf/.update.SystemUpdatePanoActivity'
-sleep '0.001'
-su -c 'pm enable com.google.android.gsf/.update.SystemUpdateService'
-sleep '0.001'
-su -c 'pm enable com.google.android.gsf/.update.SystemUpdateServiceReceiver'
-sleep '0.001'
-su -c 'pm enable com.google.android.gsf/.update.SystemUpdateServiceSecretCodeReceiver'
-
-su -lp 2000 -c "cmd notification post -S bigtext -t 'DragonBoost 1.6' 'Tag' 'DragonBoost Successfully Installed, Have Fun Boost Your Game!!!'" > /dev/null 2>&1
+su -lp 2000 -c "cmd notification post -S bigtext -t 'DragonBoost' 'Tag' 'DragonBoost Successfully Installed, Have Fun Boost Your Game!!!'" > /dev/null 2>&1
 
 exit 0
