@@ -12,7 +12,7 @@ DragonBoost is a Magisk Module that increases Qualcomm Snapdragon powered device
 
 ## Installation
 
-- Flash in magisk, require magisk v23.0 or higher
+- Flash in magisk, require magisk v20.4 or higher
 
 ## Changelog
 
