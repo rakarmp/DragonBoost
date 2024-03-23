@@ -118,8 +118,6 @@ echo "1" > /dev/cpuset/top-app/sched_relax_domain_level
 echo "1" > /dev/cpuset/restricted/sched_relax_domain_level
 echo "1" > /dev/cpuset/asopt/sched_relax_domain_level
 echo "1" > /dev/cpuset/camera-daemon/sched_relax_domain_level
-
-# Cài đặt linh tính các kernel , 20 để cho ra gần như cao nhất và các tính chất khác
 echo "0" > /proc/sys/kernel/sched_schedstats
 echo "0" > /proc/sys/kernel/sched_boost
 echo "0" > /proc/sys/kernel/sched_tunable_scaling
