@@ -1,3 +1,8 @@
+## v2.6
+- Fix Path in update.json
+- Adreno Snapshot Fix Path
+- VM Caches
+
 ## v2.5
 - Delete Some Function Not Work
 - New Logic For Cpu
