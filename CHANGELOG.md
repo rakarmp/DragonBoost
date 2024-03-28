@@ -1,3 +1,6 @@
+## 2.7
+- setting up lowram
+
 ## v2.6
 - Fix Path in update.json
 - Adreno Snapshot Fix Path
