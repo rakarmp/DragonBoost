@@ -1,4 +1,4 @@
-## 2.7
+## v2.7
 - setting up lowram
 
 ## v2.6
