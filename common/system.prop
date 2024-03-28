@@ -25,4 +25,3 @@ ro.vendor.qti.sys.fw.bg_apps_limit=120
 ro.vendor.qti.sys.fw.bservice_enable=true
 ro.vendor.qti.core.ctl_max_cpu=4
 ro.vendor.qti.core.ctl_min_cpu=2
-ro.config.low_ram=true
