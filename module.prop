@@ -1,8 +1,8 @@
 id=DG
 name=DragonBoost(お願い)
-version=2.7
+version=2.7.1
 codeName=cylic
-versionCode=1996
+versionCode=1995
 author=Zyarexx @Telegram
 description=With this modification, you can increase GPU/CPU performance by up to 75%.
 updateJson=https://raw.githubusercontent.com/rakarmp/DragonBoost/master/update.json
