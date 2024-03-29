@@ -1,3 +1,8 @@
+## v2.7.1
+- Issue Bootloop
+- Issue Force Stop App
+- Same with 2.6 version
+
 ## v2.7
 - setting up lowram
 
