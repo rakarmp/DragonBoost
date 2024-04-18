@@ -10,17 +10,34 @@ write() {
     local path="$1"
     local data="$2"
 
+    if [ -d "$path" ]; then
+        echo "Error: $path is a directory"
+        return 1
+    fi
+
+    if [ ! -e "$path" ]; then
+        echo "Error: $path does not exist"
+        return 1
+    fi
+
     if [ -f "$path" ]; then
+        # Jika file tidak dapat ditulis
         if [ ! -w "$path" ]; then
-            chmod +w "$path" 2>/dev/null || return 1
+            chmod +w "$path" 2>/dev/null || {
+                echo "Error: Could not change permissions for $path"
+                return 1
+            }
         fi
 
-        echo "$data" >"$path" || {
-            echo "Failed: $path → $data"
+        echo "$data" >"$path" 2>/dev/null || {
+            echo "Error: Could not write to $path"
             return 1
         }
+
+        echo "Success: $path → $data"
     fi
 }
+
 
 sleep 20
 # adreno snapshot 
