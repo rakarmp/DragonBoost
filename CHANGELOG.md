@@ -1,3 +1,7 @@
+## v2.8
+- Issue lpm fix
+- Recode Logic Write
+
 ## v2.7.1
 - Issue Bootloop
 - Issue Force Stop App
